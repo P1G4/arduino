@@ -6,7 +6,7 @@
 #define REED_SWITCH_PIN 2      // Reed Switch connected to digital pin 2
 
 // Set the threshold for LDR to determine if the lights are on or off
-#define LDR_THRESHOLD 500      // Light threshold for considering the light as "on"
+#define LDR_THRESHOLD 100      // Light threshold for considering the light as "on"
 
 // WiFi credentials
 const char* ssid = "your_SSID";          // Wi-Fi SSID
@@ -56,10 +56,10 @@ void loop() {
 
   // Print the LDR value, door status, and light status to the Serial Monitor for debugging
   Serial.print("LDR Value: ");
-  Serial.print(ldrValue);  // Display the LDR value
+  checkLightStatus(ldrValue);  // Check and print the light status
   Serial.print(", Door Status: ");
   Serial.print(doorStatus);  // Display the door status
-  checkLightStatus(ldrValue);  // Check and print the light status
+ 
 
   // Send the data over Wi-Fi to the local server
   sendDataToServer(ldrValue, doorStatus);
