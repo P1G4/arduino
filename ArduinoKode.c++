@@ -6,7 +6,7 @@
 #define REED_SWITCH_PIN 2      // Reed Switch connected to digital pin 2
 
 // Set the threshold for LDR to determine if the lights are on or off
-#define LDR_THRESHOLD 100      // Light threshold for considering the light as "on"
+#define LDR_THRESHOLD 300      // Light threshold for considering the light as "on"
 
 // WiFi credentials
 const char* ssid = "your_SSID";          // Wi-Fi SSID
