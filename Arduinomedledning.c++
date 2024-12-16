@@ -3,9 +3,7 @@
 // Define the pin numbers
 #define LDR_PIN A3             // LDR sensor connected to analog pin A0
 #define REED_SWITCH_PIN 2      // Reed Switch connected to digital pin 2
-
-// Set the threshold for LDR to determine if the lights are on or off
-#define LDR_THRESHOLD 500      // Light threshold for considering the light as "on"
+#define LDR_THRESHOLD 300
 
 // Variables to hold sensor readings
 int ldrValue = 0;
@@ -22,13 +20,12 @@ void setup() {
   
   // Display initial message
   Serial.println("Arduino Sensor Data Logging Started...");
-  Serial.println("Threshold for LDR: 500");
   Serial.println("Data format: LDR Value, Door Status");
 }
 
 // Function to print the light status based on LDR value
 void checkLightStatus(int ldrValue) {
-  if (ldrValue < 300) {
+  if (ldrValue < LDR_THRESHOLD) {
     Serial.println("Shut off");
   } else {
     Serial.println("Turned on");
@@ -48,13 +45,13 @@ void loop() {
 
   // Print the data to Serial Monitor
   Serial.print("LDR Value: ");
-  Serial.print(ldrValue);  // Display the LDR value
-  Serial.print(", Door Status: ");
-  Serial.println(doorStatus);  // Display the door status
-
-  // Check the light status based on LDR value
   checkLightStatus(ldrValue);
+  Serial.println(doorStatus);  // Display the door status
+  Serial.print(", Door Status: ");
+  
 
-  // Wait for 1 second before taking another reading
-  delay(1000); // Delay in milliseconds
+
+
+  // Wait for 30 minutes before taking another reading
+  delay(1800000); // Delay in milliseconds
 }
