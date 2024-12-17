@@ -53,11 +53,13 @@ void loop() {
 
   // Convert reed switch state to a human-readable format
   String doorStatus = (reedSwitchState == HIGH) ? "closed" : "open";
+ 
+  String lightStatus;
 
   if (ldrValue < LDR_THRESHOLD) {
-   String lightStatus = "off";
+    lightStatus = "off";
   } else {
-    String lightStatus = "on";
+    lightStatus = "on";
   }
   // Print the LDR value, door status, and light status to the Serial Monitor for debugging
   Serial.print("LDR Value: ");
