@@ -63,9 +63,11 @@ void loop() {
   }
   // Print the LDR value, door status, and light status to the Serial Monitor for debugging
   Serial.print("LDR Value: ");
-  checkLightStatus(ldrValue);  // Check and print the light status
-  Serial.print("Door Status: ");
-  Serial.print(doorStatus);  // Display the door status
+  Serial.print(ldrValue);  
+  Serial.print(", Light Status: ");
+  Serial.print(lightStatus);
+  Serial.print(", Door Status: ");
+  Serial.println(doorStatus); 
  
 
   // Send the data over Wi-Fi to the local server
@@ -104,14 +106,7 @@ void sendDataToServer(String lightStatus, String doorStatus) {
 
   client.stop();  // Close the connection
 }
-// Function to check light status based on the LDR value
-void checkLightStatus(int ldrValue) {
-  if (ldrValue < LDR_THRESHOLD) {
-    Serial.println("Light Status: Shut off");
-  } else {
-    Serial.println("Light Status: Turned on");
-  }
-}
+
 
 
 
