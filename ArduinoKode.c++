@@ -75,8 +75,8 @@ void loop() {
   // Send the data over Wi-Fi to the local server
   sendDataToServer(lightStatus, doorStatus);
 
-  // Wait for 5 seconds before sending the next data
-  delay(5000);
+  // Wait for 30 minuttes before sending the next data
+  delay(1800000);
 }
 
 // Function to send data to the server via HTTP POST
