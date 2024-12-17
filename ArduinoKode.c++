@@ -52,24 +52,29 @@ void loop() {
   reedSwitchState = digitalRead(REED_SWITCH_PIN);  // HIGH if door is closed, LOW if door is open
 
   // Convert reed switch state to a human-readable format
-  String doorStatus = (reedSwitchState == HIGH) ? "Closed" : "Open";
+  String doorStatus = (reedSwitchState == HIGH) ? "closed" : "open";
 
+  if (ldrValue < LDR_THRESHOLD) {
+   String lightStatus = "off";
+  } else {
+    String lightStatus = "on";
+  }
   // Print the LDR value, door status, and light status to the Serial Monitor for debugging
   Serial.print("LDR Value: ");
   checkLightStatus(ldrValue);  // Check and print the light status
-  Serial.print(", Door Status: ");
+  Serial.print("Door Status: ");
   Serial.print(doorStatus);  // Display the door status
  
 
   // Send the data over Wi-Fi to the local server
-  sendDataToServer(ldrValue, doorStatus);
+  sendDataToServer(lightStatus, doorStatus);
 
   // Wait for 5 seconds before sending the next data
   delay(5000);
 }
 
 // Function to send data to the server via HTTP POST
-void sendDataToServer(int ldrValue, String doorStatus) {
+void sendDataToServer(String lightStatus, String doorStatus) {
   if (client.connect(serverIP, port)) {  // Connect to the server (your computer)
     Serial.println("Connected to server");
 
@@ -78,11 +83,11 @@ void sendDataToServer(int ldrValue, String doorStatus) {
     client.println("Host: " + String(serverIP));  // Set the host (your computer IP)
     client.println("Content-Type: application/x-www-form-urlencoded");  // Form data type
     client.print("Content-Length: ");
-    client.println(String("ldrValue=" + String(ldrValue) + "&doorStatus=" + doorStatus).length());
+    client.println(String("lightStatus=" + lightStatus + "&doorStatus=" + doorStatus).length());
     client.println();  // Blank line to end headers
 
     // Send the POST data (URL-encoded format)
-    client.print("ldrValue=" + String(ldrValue) + "&doorStatus=" + doorStatus);
+    client.print("lightStatus=" + lightStatus + "&doorStatus=" + doorStatus);
 
     // Wait for the server's response
     while (client.available()) {
@@ -98,11 +103,4 @@ void sendDataToServer(int ldrValue, String doorStatus) {
   client.stop();  // Close the connection
 }
 
-// Function to check light status based on the LDR value
-void checkLightStatus(int ldrValue) {
-  if (ldrValue < LDR_THRESHOLD) {
-    Serial.println("Light Status: Shut off");
-  } else {
-    Serial.println("Light Status: Turned on");
-  }
-}
+
