@@ -104,5 +104,14 @@ void sendDataToServer(String lightStatus, String doorStatus) {
 
   client.stop();  // Close the connection
 }
+// Function to check light status based on the LDR value
+void checkLightStatus(int ldrValue) {
+  if (ldrValue < LDR_THRESHOLD) {
+    Serial.println("Light Status: Shut off");
+  } else {
+    Serial.println("Light Status: Turned on");
+  }
+}
+
 
 
