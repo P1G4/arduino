@@ -45,15 +45,17 @@ void setup() {
 }
 
 void loop() {
-  // Read the LDR value (Light Level)
-  ldrValue = analogRead(LDR_PIN); // Read analog value from LDR
+ 
 
   // Read the Reed Switch state (door open/close)
   reedSwitchState = digitalRead(REED_SWITCH_PIN);  // HIGH if door is closed, LOW if door is open
 
   // Convert reed switch state to a human-readable format
   String doorStatus = (reedSwitchState == HIGH) ? "closed" : "open";
- 
+
+   // Read the LDR value (Light Level)
+  ldrValue = analogRead(LDR_PIN); // Read analog value from LDR
+  
   String lightStatus;
 
   if (ldrValue < LDR_THRESHOLD) {
